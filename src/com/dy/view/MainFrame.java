@@ -16,13 +16,13 @@ public class MainFrame extends HttpServlet {
 
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		out.println("<img src='images/8.gif' />  »¶Ó­  xx  µÇÂ¼  <a href='/UsersManager2/LoginServlet'>·µ»ØµÇÂ¼½çÃæ</a><hr/>");
+		out.println("<img src='images/8.gif' />  æ¬¢è¿  xx  ç™»å½•  <a href='/UsersManager2/LoginServlet'>è¿”å›ç™»å½•ç•Œé¢</a><hr/>");
 		
-		out.println("<h3>ÇëÑ¡ÔñÄúÒª½øĞĞµÄ²Ù×÷</h3>");
-		out.println("<a href='/UsersManager2/Managerusers'>¹ÜÀíÓÃ»§</a><br/>");
-		out.println("<a href=''>Ìí¼ÓÓÃ»§</a><br/>");
-		out.println("<a href=''>²éÕÒÓÃ»§</a><br/>");
-		out.println("<a href=''>ÍË³öÏµÍ³</a><br/>");
+		out.println("<h3>è¯·é€‰æ‹©æ‚¨è¦è¿›è¡Œçš„æ“ä½œ</h3>");
+		out.println("<a href='/UsersManager2/Managerusers'>ç®¡ç†ç”¨æˆ·</a><br/>");
+		out.println("<a href=''>æ·»åŠ ç”¨æˆ·</a><br/>");
+		out.println("<a href=''>æŸ¥æ‰¾ç”¨æˆ·</a><br/>");
+		out.println("<a href=''>é€€å‡ºç³»ç»Ÿ</a><br/>");
 		
 	}
 
