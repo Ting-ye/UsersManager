@@ -20,14 +20,14 @@ public class Managerusers extends HttpServlet {
 
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws IOException {
 
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();	
 		out.println("<script type='text/javascript' language='javascript'>");
 		out.println("function gotoPage(){" +
 				"var pageNow=document.getElementById('pageNow');"+
-		"window.open('/UsersManager2/Managerusers?pageNow='+pageNow.value,'_self');}");
+		"window.open('/Managerusers?pageNow='+pageNow.value,'_self');}");
 		out.println("</script>");
 		out.println("<h2>管理用户</h2>");
 		
@@ -61,7 +61,7 @@ public class Managerusers extends HttpServlet {
 			
 			ps=conn.prepareStatement("select * from users limit "+pageSize*(pageNow-1)+","+ pageSize+"");
 			rs=ps.executeQuery();
-			out.println("<img src='images/8.gif' />  欢迎  xx  登录  <a href='/UsersManager2/MainFrame'>返回主界面</a>  <a href='/UsersManager2/MainFrame'>安全退出</a><hr/>");
+			out.println("<img src='images/8.gif' />  欢迎  xx  登录  <a href='/UsersManager/MainFrame'>返回主界面</a>  <a href='/UsersManager/MainFrame'>安全退出</a><hr/>");
 			out.println("<table border=1 bordercolor=blue cellspacing=0 width=500px>");
 			out.println("<tr><th>id</th><th>用户名</th><th>e-mail</th><th>级别</th></tr>");
 			while(rs.next()){
@@ -73,13 +73,13 @@ public class Managerusers extends HttpServlet {
 			}
 			out.println("</table>");
 			if(pageNow>1){
-			out.println("<a href='/UsersManager2/Managerusers?pageNow="+(pageNow-1)+"'>上一页</a>");
+			out.println("<a href='/UsersManager/Managerusers?pageNow="+(pageNow-1)+"'>上一页</a>");
 			}
 			for(int i=1;i<=pageCount;i++){	
-				out.println("<a href='/UsersManager2/Managerusers?pageNow="+i+"'><"+i+"></a>");
+				out.println("<a href='/UsersManager/Managerusers?pageNow="+i+"'><"+i+"></a>");
 			}
 			if(pageNow<pageCount){
-			out.println("<a href='/UsersManager2/Managerusers?pageNow="+(pageNow+1)+"'>下一页</a>");
+			out.println("<a href='/UsersManager/Managerusers?pageNow="+(pageNow+1)+"'>下一页</a>");
 				}
 			out.println("&nbsp;&nbsp;&nbsp;当前页"+pageNow+"/总"+pageCount+"页"+"<br/>");
 			out.println("跳转到第 <input type='text' name='pageNow' id='pageNow' style='width:40px'/>"+"页 <input type='button' value='跳转' onClick='gotoPage()'>");
