@@ -1,4 +1,4 @@
-package com.dy.utils;
+package com.dy.util;
 
 import java.net.URLDecoder;
 

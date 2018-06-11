@@ -1,5 +1,8 @@
 package com.dy.controller;
 
+import com.dy.domain.User;
+import com.dy.service.UserService;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,47 +27,27 @@ public class LoginClServlet extends HttpServlet {
 		String id=request.getParameter("id");
 		String password=request.getParameter("password");
 
-		Connection conn=null;
-		ResultSet rs=null;
-		PreparedStatement ps=null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/servletest?characterEncoding=utf-8","root","123456");
-			ps=conn.prepareStatement("select * from users where id=? and password=? ");
-			ps.setObject(1, id);
-			ps.setObject(2, password);
-			rs=ps.executeQuery();
+		//创建
+		UserService userService=new UserService();
+		User user=new User();
+		user.setId(Integer.parseInt(id));
+		user.setPassword(password);
 
-		if(rs.next()){
-				request.getRequestDispatcher("/MainFrame").forward(request, response);
-			}else{
+		if(userService.checkUser(user)){
+            try {
+                request.getRequestDispatcher("/MainFrame").forward(request, response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            }
+        }else{
 				request.setAttribute("err","用户id 或   密码有误");
-				request.getRequestDispatcher("/LoginServlet").forward(request, response);
-			}
-		} catch (Exception e) {
-			request.setAttribute("err","用户id输入错误");
+            try {
+                request.getRequestDispatcher("/LoginServlet").forward(request, response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            }
+        }
 
-			e.printStackTrace();
-		}finally{
-
-			try {
-				rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			try {
-				ps.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-
-		}
 
 	}
 
