@@ -1,6 +1,9 @@
 package com.dy.view;
 
 
+import com.dy.domain.User;
+import com.dy.service.UserService;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -8,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -58,18 +62,19 @@ public class Managerusers extends HttpServlet {
 			rs.next();
 			rowCount=rs.getInt(1);
 			pageCount= rowCount%pageSize==0?rowCount/pageSize:rowCount/pageSize+1;
-			
-			ps=conn.prepareStatement("select * from users limit "+pageSize*(pageNow-1)+","+ pageSize+"");
-			rs=ps.executeQuery();
+
+			UserService userService=new UserService();
+			ArrayList<User> al=userService.getUsersByPage(pageNow,pageSize);
+
 			out.println("<img src='images/8.gif' />  欢迎  xx  登录  <a href='/UsersManager/MainFrame'>返回主界面</a>  <a href='/UsersManager/MainFrame'>安全退出</a><hr/>");
 			out.println("<table border=1 bordercolor=blue cellspacing=0 width=500px>");
 			out.println("<tr><th>id</th><th>用户名</th><th>e-mail</th><th>级别</th></tr>");
-			while(rs.next()){
-				out.println("<tr><td>"+rs.getInt(1)
-						+"</td><td>"+rs.getString(2)
-						+"</td> <td>"+rs.getString(3)
-						+"</td> <td>"+rs.getInt(4)
-						+"</td></tr>");
+			for(User u:al) {
+				out.println("<tr><td>" + u.getId()
+						+ "</td><td>" + u.getUsername()
+						+ "</td> <td>" + u.getEmail()
+						+ "</td> <td>" + u.getGrade()
+						+ "</td></tr>");
 			}
 			out.println("</table>");
 			if(pageNow>1){
