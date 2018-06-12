@@ -110,6 +110,37 @@ public class SqlHelper {
         return rs;
     }
 
+    //先写一个update、delete、insert
+    //sql格式：update 表名 set 字段名 =？where 字段=？
+    //parameter神应该是（”abc“,23）
+    public static void executeUpdate(String sql,String[] parameters)
+    {
+        try
+        {
+            ct=getConnection();
+            ps = ct.prepareStatement(sql);
+            if(parameters!=null)
+            {
+                for(int i=0;i<parameters.length;i++)
+                {
+                    ps.setString(i+1,parameters[i]);
+                }
+
+            }
+            ps.executeUpdate();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();//开发阶段
+            //抛出异常
+            //可以处理，也可以不处理
+            throw new RuntimeException(e.getMessage());
+        }
+        finally
+        {
+            close(rs,ps,ct);
+        }
+    }
 
     public static Connection getCt()
     {
