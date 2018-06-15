@@ -41,24 +41,44 @@
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>DelClServlet</servlet-name>
-    <servlet-class>com.dy.controller.DelClServlet</servlet-class>
+    <servlet-name>UserClServlet</servlet-name>
+    <servlet-class>com.dy.controller.UserClServlet</servlet-class>
+  </servlet>
+  <servlet>
+  <description>This is the description of my J2EE component</description>
+  <display-name>This is the display name of my J2EE component</display-name>
+  <servlet-name>Ok</servlet-name>
+  <servlet-class>com.dy.view.Ok</servlet-class>
+</servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>Err</servlet-name>
+    <servlet-class>com.dy.view.Err</servlet-class>
   </servlet>
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>Ok</servlet-name>
-    <servlet-class>com.dy.view.Ok</servlet-class>
+    <servlet-name>UpdateUserVie</servlet-name>
+    <servlet-class>com.dy.view.UpdateUserVie</servlet-class>
   </servlet>
 
 
+  <servlet-mapping>
+    <servlet-name>UpdateUserVie</servlet-name>
+    <url-pattern>/UpdateUserVie</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Ok</servlet-name>
     <url-pattern>/Ok</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>DelClServlet</servlet-name>
-    <url-pattern>/DelClServlet</url-pattern>
+    <servlet-name>Err</servlet-name>
+    <url-pattern>/Err</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserClServlet</servlet-name>
+    <url-pattern>/UserClServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>

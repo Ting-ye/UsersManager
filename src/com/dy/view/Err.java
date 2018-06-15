@@ -17,8 +17,8 @@ import java.io.PrintWriter;
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();
-        out.println("对不起，操作失败！");
-        out.println("<a href='/Managerusers/MainFrame'>返回管理用户界面</a>");
+        out.println("对不起，"+request.getAttribute("info").toString()+"<br/>");
+        out.println("<a href='/UsersManager/MainFrame'>返回管理用户界面</a>");
 
     }
 }

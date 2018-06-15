@@ -31,7 +31,8 @@ public class Managerusers extends HttpServlet {
 		out.println("<script type='text/javascript' language='javascript'>");
 		out.println("function gotoPage(){" +
 				"var pageNow=document.getElementById('pageNow');"+
-		"window.open('/Managerusers?pageNow='+pageNow.value,'_self');}");
+		"window.open('/Managerusers?pageNow='+pageNow.value,'_self');}" +
+				"function confirmOper(){ window.confirm('是否确认删除？');}");
 		out.println("</script>");
 		out.println("<h2>管理用户</h2>");
 
@@ -43,13 +44,14 @@ public class Managerusers extends HttpServlet {
 		if(sPageNow!=null){
 		pageNow=Integer.parseInt(sPageNow);
 		}
+
 		try {
 			UserService userService=new UserService();
 
 			pageCount=userService.getPageCount(pageSize);
 			ArrayList<User> al=userService.getUsersByPage(pageNow,pageSize);
 
-			out.println("<img src='images/8.gif' />  欢迎  xx  登录  <a href='/UsersManager/MainFrame'>返回主界面</a>  <a href='/UsersManager/MainFrame'>安全退出</a><hr/>");
+			out.println("<img src='images/8.gif' />  欢迎  'u.getUsername()'  登录  <a href='/UsersManager/MainFrame'>返回主界面</a>  <a href='/UsersManager/MainFrame'>安全退出</a><hr/>");
 			out.println("<table border=1 bordercolor=blue cellspacing=0 width=500px>");
 			out.println("<tr><th>id</th><th>用户名</th><th>e-mail</th><th>级别</th><th>删除用户</th><th>修改用户</th></tr>");
 			for(User u:al) {
@@ -57,8 +59,8 @@ public class Managerusers extends HttpServlet {
 						+ "</td><td>" + u.getUsername()
 						+ "</td> <td>" + u.getEmail()
 						+ "</td> <td>" + u.getGrade()
-						+ "</td><td><a href='/UsersManager/DelClServlet?id="+u.getId()+"'>删除用户</a></td>"
-						+"<td><a href='#'>修改用户</a></td></tr>");
+						+ "</td><td><a  onClick='return confirmOper();' href='/UsersManager/UserClServlet?type=del&id="+u.getId()+"'>删除用户</a></td>"
+						+"<td><a href='/UsersManager/UserClServlet?type=gotoUpView&id="+u.getId()+"'>修改用户</a></td></tr>");
 			}
 			out.println("</table>");
 			if(pageNow>1){

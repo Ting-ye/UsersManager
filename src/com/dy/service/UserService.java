@@ -66,7 +66,7 @@ public class UserService {
         return al;
     }
 
-
+    //通过ID和密码验证用户
     public boolean checkUser(User user){
         boolean b=false;
 
@@ -84,4 +84,66 @@ public class UserService {
         }
         return  b;
     }
+
+    //通过id获取用户数据
+    public User getUserById(String id){
+        String sql="select * from users where id=?";
+        String parameters[]={id};
+        ResultSet rs=SqlHelper.executeQuery(sql,parameters);
+        User user=new User();
+        try {
+            if(rs.next()){
+
+                user.setId(rs.getInt(1));
+                user.setUsername(rs.getString(2));
+                user.setEmail(rs.getString(3));
+                user.setPassword(rs.getString(4));
+                user.setGrade(rs.getString(5));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            SqlHelper.close(rs,SqlHelper.getPs(),SqlHelper.getCt());
+        }
+        return user;
+    }
+
+    //修改用户
+    public boolean updUser(User user){
+        boolean b=true;
+        String sql="update users set username=? ，email=? ，grade=? ，password=? where id=?";
+        String parameters[]={user.getUsername(),user.getEmail(),user.getGrade(),user.getPassword(),user.getId()+""};
+        try {
+            SqlHelper.executeUpdate(sql,parameters);
+        } catch (Exception e) {
+            b=false;
+            e.printStackTrace();
+        }
+        return b;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

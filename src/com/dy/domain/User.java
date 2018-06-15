@@ -7,6 +7,19 @@ public class User {
     private String grade;
     private String password;
 
+    public User(){
+
+    }
+
+    public User(int id,String username,String email,String grade,String password){
+        this.id=id;
+        this.username=username;
+        this.email=email;
+        this.grade=grade;
+        this.password=password;
+    }
+
+
     public String getPassword() {
         return password;
     }

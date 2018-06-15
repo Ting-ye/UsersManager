@@ -33,6 +33,7 @@ public class LoginClServlet extends HttpServlet {
 		user.setId(Integer.parseInt(id));
 		user.setPassword(password);
 
+
 		if(userService.checkUser(user)){
             try {
                 request.getRequestDispatcher("/MainFrame").forward(request, response);
