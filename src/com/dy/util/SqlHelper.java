@@ -83,7 +83,8 @@ public class SqlHelper {
     }
 
 
-    public static ResultSet executeQuery(String sql,String[] parameters)
+    public static ResultSet
+    executeQuery(String sql,String[] parameters)
     {
         try
         {

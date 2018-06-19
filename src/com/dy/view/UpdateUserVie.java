@@ -19,6 +19,7 @@ public class UpdateUserVie extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();
+        //接收UserClServlet页面获取到的对象 对象传送用userInfo的名字
         User user= (User) request.getAttribute("userInfo");
 
 

@@ -49,7 +49,6 @@ public class UserClServlet extends HttpServlet {
             String grade=request.getParameter("grade");
             String password=request.getParameter("password");
 
-            System.out.println(id);
             //修改用户
             User user=new User(Integer.parseInt(id),username,email,grade,password);
             if(userService.updUser(user)){
@@ -59,7 +58,27 @@ public class UserClServlet extends HttpServlet {
                 request.setAttribute("info","修改失败");
                 request.getRequestDispatcher("/Err").forward(request, response);
             }
+        }else if("gotoAddVie".equals(type)){
+            request.getRequestDispatcher("/AddUsersView").forward(request,response);
+        }else if("add".equals(type)){
 
+            String username=request.getParameter("username");
+            String email=request.getParameter("email");
+            String grade=request.getParameter("grade");
+            String password=request.getParameter("password");
+            User user=new User();
+            user.setUsername(username);
+            user.setEmail(email);
+            user.setGrade(grade);
+            user.setPassword(password);
+
+            if(userService.addUser(user)){
+                request.setAttribute("info","添加成功");
+                request.getRequestDispatcher("/Ok").forward(request, response);
+            }else{
+                request.setAttribute("info","添加失败");
+                request.getRequestDispatcher("/Err").forward(request, response);
+            }
         }
     }
 }

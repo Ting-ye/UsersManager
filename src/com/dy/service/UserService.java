@@ -111,8 +111,23 @@ public class UserService {
     //修改用户
     public boolean updUser(User user){
         boolean b=true;
-        String sql="update users set username=? ，email=? ，grade=? ，password=? where id=?";
+        String sql="update users set username=? , email=? , grade=? , password=? where id=?";
         String parameters[]={user.getUsername(),user.getEmail(),user.getGrade(),user.getPassword(),user.getId()+""};
+        try {
+            SqlHelper.executeUpdate(sql,parameters);
+        } catch (Exception e) {
+            b=false;
+            e.printStackTrace();
+        }
+        return b;
+    }
+    //添加用户
+    public boolean addUser(User user){
+        boolean b=true;
+        String sql="insert into users(username,email,grade,password)values(?,?,?,?)";
+        String parameters[]={user.getUsername(),user.getEmail(),user.getGrade(),user.getPassword()};
+
+
         try {
             SqlHelper.executeUpdate(sql,parameters);
         } catch (Exception e) {
