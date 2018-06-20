@@ -136,6 +136,28 @@ public class UserService {
         }
         return b;
     }
+    //精确查询
+    public User exactQuery(String username){
+
+        String sql="select * from users where username=?";
+        String parameters[]={username};
+        ResultSet rs=SqlHelper.executeQuery(sql,parameters);
+        User u=new User();
+        //二次封装
+        try{
+            while(rs.next()){
+                u.setId(rs.getInt(1));
+                u.setUsername(rs.getString(2));
+                u.setEmail(rs.getString(3));
+                u.setGrade(rs.getString(4));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            SqlHelper.close(rs,SqlHelper.getPs(),SqlHelper.getCt());
+        }
+        return u;
+    }
 }
 
 

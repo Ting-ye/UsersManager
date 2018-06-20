@@ -79,6 +79,20 @@ public class UserClServlet extends HttpServlet {
                 request.setAttribute("info","添加失败");
                 request.getRequestDispatcher("/Err").forward(request, response);
             }
+        }else if("gotoQueryVie".equals(type)){
+            request.getRequestDispatcher("/QueryUsersView").forward(request,response);
+        }else if("query".equals(type)){
+            String queryWay=request.getParameter("queryWay");
+            String findName=request.getParameter("findName");
+            if(queryWay.equals("exactQuery")){
+                User user=userService.exactQuery(findName);
+                request.setAttribute("queryUserInfo",user);
+                request.getRequestDispatcher("/QueryUsersView").forward(request,response);
+            }else if(queryWay.equals("exactQuery")){
+
+            }else{
+                out.println("请选择查询方式！！！");
+            }
         }
     }
 }
