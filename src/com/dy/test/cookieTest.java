@@ -13,39 +13,39 @@ import java.text.SimpleDateFormat;
 @WebServlet(name = "cookieTest")
 public class cookieTest extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.doGet(request,response);
+        this.doGet(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();
-        //chrome规定本地不可以设置cookie!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        Cookie []cookies=request.getCookies();
+        Cookie cookies[]=request.getCookies();
         boolean b=false;
+//        如果要在cookie中添加中文或者空格用下面这一行转码 取出的时候要解码取出否则为乱码 第二行为解码
+//        String val=java.net.URLEncoder.encode("  空格和中文转码","utf-8");
+//        String val=java.net.URLDecoder.decode(cookie.getValue(),"utf-8");
         if(cookies!=null) {
-            for (Cookie cookie:cookies) {
-                String name=cookie.getName();
-                if ("lasttime".equals(name)) {
-                    out.println("您上次登录的时间是:" + cookie.getValue());
-                    //更新时间
-                    SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    String nowtime=simpleDateFormat.format(new java.util.Date());
-                    Cookie mycookie=new Cookie("lasttime",nowtime);
-                    mycookie.setMaxAge(3600*24*7);
+            for (Cookie cookie : cookies) {
+                if ("lasttime".equals(cookie.getName())) {
+                    out.println("您上次的登录时间为:" + cookie.getValue());
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                    String nowTime = simpleDateFormat.format(new java.util.Date());
+                    Cookie mycookie = new Cookie("lasttime", nowTime);
+                    mycookie.setMaxAge(7 * 3600 * 24);
                     response.addCookie(mycookie);
-                    b = true;
+                    b=true;
                     break;
                 }
             }
         }
-        if(b==false){
-            //没有找到 简写都是默认和true做比较。也就是说当b=false时，if (!b)就等价于!b == true
-            out.println("您是第一次登录..");
-            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String nowtime=simpleDateFormat.format(new java.util.Date());
-            Cookie cookie=new Cookie("lasttime",nowtime);
-            cookie.setMaxAge(3600*24*7);
+        if(!b) {
+            out.println("您是第一次访问..");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            String nowTime = simpleDateFormat.format(new java.util.Date());
+            Cookie cookie = new Cookie("lasttime", nowTime);
+            cookie.setMaxAge(7 * 3600 * 24);
             response.addCookie(cookie);
         }
+
     }
 }
