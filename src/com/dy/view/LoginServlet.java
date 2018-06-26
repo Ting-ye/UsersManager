@@ -14,6 +14,7 @@ public class LoginServlet extends HttpServlet {
 
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
+		out.println("< style='color:red;font-size:30px'>未实现的功能还有模糊查询 登录页面显示用户名 过滤器 登录时验证码！！！！！！！！</p>");
 		out.println("<img src='images/8.gif' /><hr/><h1>用户登录</h1>");
 		out.println("<form action='LoginClServlet' method='post'>");
 		out.println("用户id:<input type='text' name='id' /><br/>");
@@ -30,7 +31,6 @@ public class LoginServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
-
 		this.doGet(request, response);
 	}
 
