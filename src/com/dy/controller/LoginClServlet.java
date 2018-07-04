@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -35,13 +36,27 @@ public class LoginClServlet extends HttpServlet {
 
 
 		if(userService.checkUser(user)){
+
+			//把user对象存放到session
+			HttpSession session=request.getSession();
+			session.setAttribute("loginUser",user);
+
+			//获取用户名放入session
+			user=userService.getUserById(id);
+			String username=user.getUsername();
+			session.setAttribute("username",username);
+
+			//获取网站访问次数
+			String nums= (String) this.getServletContext().getAttribute("nums");
+			this.getServletContext().setAttribute("nums",(Integer.parseInt(nums)+1)+"");
+
             try {
-                request.getRequestDispatcher("/MainFrame").forward(request, response);
-            } catch (ServletException e) {
+                response.sendRedirect("/UsersManager/MainFrame");
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }else{
-				request.setAttribute("err","用户id 或   密码有误");
+				request.setAttribute("err","用户id或密码有误");
             try {
                 request.getRequestDispatcher("/LoginServlet").forward(request, response);
             } catch (ServletException e) {
@@ -55,7 +70,6 @@ public class LoginClServlet extends HttpServlet {
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		this.doGet(request, response);
 	}
 

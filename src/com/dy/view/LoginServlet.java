@@ -14,9 +14,9 @@ public class LoginServlet extends HttpServlet {
 
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		out.println("< style='color:red;font-size:30px'>未实现的功能还有模糊查询 登录页面显示用户名 过滤器 登录时验证码！！！！！！！！</p>");
+		out.println("<p style='color:red;font-size:30px'>未实现的功能还有模糊查询 登录页面显示用户名 过滤器 登录时验证码！！！！！！！！</p>");
 		out.println("<img src='images/8.gif' /><hr/><h1>用户登录</h1>");
-		out.println("<form action='LoginClServlet' method='post'>");
+		out.println("<form action='/UsersManager/LoginClServlet' method='post'>");
 		out.println("用户id:<input type='text' name='id' /><br/>");
 		out.println("密    码:<input type='password' name='password'/><br/>");
 		out.println("<input type='submit' value='登录'/><br/>");

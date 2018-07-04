@@ -27,6 +27,7 @@ public class SqlHelper {
         try{
             pp=new Properties();
             //fis=new FileInputStream("dbinfo.properties");这样写配置文件要放在tomcat 的bin目录下
+            //文件在src下用类加载器来读取
             fis=SqlHelper.class.getClassLoader().getResourceAsStream("dbinfo.properties");
             pp.load(fis);
 

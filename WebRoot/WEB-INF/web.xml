@@ -80,9 +80,20 @@
     <servlet-name>ReadCookie</servlet-name>
     <servlet-class>com.dy.test.ReadCookie</servlet-class>
   </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>initServlet</servlet-name>
+    <servlet-class>com.dy.domain.initServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
 
 
 
+  <servlet-mapping>
+    <servlet-name>initServlet</servlet-name>
+    <url-pattern>/initServlet</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>ReadCookie</servlet-name>
     <url-pattern>/ReadCookie</url-pattern>

@@ -11,9 +11,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +29,22 @@ public class Managerusers extends HttpServlet {
 			throws IOException {
 
 		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();	
+		PrintWriter out = response.getWriter();
+
+		//		取出session验证 利用session防盗链
+		User user=(User)request.getSession().getAttribute("loginUser");
+		if(user==null){
+			try {
+				request.setAttribute("err","请先登录");
+				request.getRequestDispatcher("/LoginServlet").forward(request,response);
+				return;//这句话很重要import，不然会继续往下走，加载登录页面
+			} catch (ServletException e) {
+				e.printStackTrace();
+			}
+		}
+
+
+
 		out.println("<script type='text/javascript' language='javascript'>");
 		out.println("function gotoPage(){" +
 				"var pageNow=document.getElementById('pageNow');"+
@@ -45,13 +62,16 @@ public class Managerusers extends HttpServlet {
 		pageNow=Integer.parseInt(sPageNow);
 		}
 
+		//从session中获取用户名
+		String username= (String) request.getSession().getAttribute("username");
+
 		try {
 			UserService userService=new UserService();
 
 			pageCount=userService.getPageCount(pageSize);
 			ArrayList<User> al=userService.getUsersByPage(pageNow,pageSize);
 
-			out.println("<img src='images/8.gif' />  欢迎  'u.getUsername()'  登录  <a href='/UsersManager/MainFrame'>返回主界面</a>  <a href='/UsersManager/MainFrame'>安全退出</a><hr/>");
+			out.println("<img src='images/8.gif' />  欢迎  "+username+"  登录  <a href='/UsersManager/MainFrame'>返回主界面</a>  <a href='/UsersManager/MainFrame'>安全退出</a><hr/>");
 			out.println("<table border=1 bordercolor=blue cellspacing=0 width=500px>");
 			out.println("<tr><th>id</th><th>用户名</th><th>e-mail</th><th>级别</th><th>删除用户</th><th>修改用户</th></tr>");
 			for(User u:al) {
