@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 @WebServlet(name = "UserClServlet")
 public class UserClServlet extends HttpServlet {
@@ -88,8 +90,10 @@ public class UserClServlet extends HttpServlet {
                 User user=userService.exactQuery(findName);
                 request.setAttribute("queryUserInfo",user);
                 request.getRequestDispatcher("/QueryUsersView").forward(request,response);
-            }else if(queryWay.equals("exactQuery")){
-
+            }else if(queryWay.equals("fuzzyQuery")){
+                    ArrayList<User> arrayList=userService.fuzzyQuery(findName);
+                    request.setAttribute("fuzzyUserInfo",arrayList);
+                    request.getRequestDispatcher("/QueryUsersView").forward(request,response);
             }else{
                 out.println("请选择查询方式！！！");
             }

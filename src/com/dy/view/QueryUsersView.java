@@ -23,7 +23,7 @@ public class QueryUsersView extends HttpServlet {
         PrintWriter out = response.getWriter();
         int pageNow=1;//当前页面
         int pageSize=3;//每页数据量
-        User u=(User) request.getAttribute("queryUserInfo");
+        User u=new User();
 
         try {
             out.println("<h1>查询用户</h1><hr />");
@@ -33,11 +33,25 @@ public class QueryUsersView extends HttpServlet {
             out.println("</form>");
             out.println("<table border=1 bordercolor=blue cellspacing=0 width=500px>");
             out.println("<tr><th>id</th><th>用户名</th><th>e-mail</th><th>级别</th></tr>");
+            if(request.getAttribute("queryUserInfo")!=null) {
+                u=(User) request.getAttribute("queryUserInfo");
+
                 out.println("<tr><td>" + u.getId()
                         + "</td><td>" + u.getUsername()
                         + "</td> <td>" + u.getEmail()
                         + "</td> <td>" + u.getGrade()
                         + "</td>");
+            }
+            if(request.getAttribute("fuzzyUserInfo")!=null) {
+        ArrayList<User> al = (ArrayList<User>) request.getAttribute("fuzzyUserInfo");
+                for (User user : al) {
+                    out.println("<tr><td>" + user.getId()
+                            + "</td><td>" + user.getUsername()
+                            + "</td> <td>" + user.getEmail()
+                            + "</td> <td>" + user.getGrade()
+                            + "</td>");
+                }
+            }
         } catch (Exception e) {
             // TODO: handle exception
         }
